@@ -3,19 +3,19 @@
    <div class="card-body">
      <div class="form-group">
        <label>montant</label>
-       <input type="number" class="form-control" [(ngModel)]="achats.montant" >
-       </div>
+       <input type="number" class="form-control" [(ngModel)]="this.achats.montant" >   </div>
+
      <div class="form-group">
        <label >date</label>
-       <input type="date" class="form-control"  [(ngModel)]="achats.date" ></div>
+       <input type="date" class="form-control" [(ngModel)]="this.achats.date" ></div>
      <div class="form-group">
        <label>reference</label>
-       <input type="text" class="form-control"  [(ngModel)]="achats.reference"></div>
+       <input type="text" class="form-control"  [(ngModel)]="this.achats.reference"></div>
      <div class="card-footer">
        <button class="btn btn-block btn-outline-primary"(click)="save()">Enregistrer </button>
-       
+
      </div>
    </div>
  </div>
- 
+
 
