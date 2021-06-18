@@ -13,8 +13,21 @@ export class VentesComponent implements OnInit {
   public save(){
     this.ventesService.save();
   }
-
-
+   public findByDate(date:Date){
+    return this.ventesService.findByDate(date);
+   }
+   public findByReference(reference:string){
+    return this.ventesService.findByReference(reference);
+   }
+   public findByMontant(montant:string){
+    return this.ventesService.findByMontant(montant);
+   }
+   public deleteByDate(date:Date){
+    return this.ventesService.deleteByDate(date);
+   }
+   public deleteByReference(reference:string){
+    return this.ventesService.deleteByReference(reference);
+   }
   ngOnInit(): void {
   }
 

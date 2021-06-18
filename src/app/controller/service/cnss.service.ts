@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Achats} from "../model/achats.model";
 import {Cnss} from "../model/cnss.model";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,75 @@ import {Cnss} from "../model/cnss.model";
 export class CnssService {
   public _cnss:Cnss| undefined;
   public _listcnss: Array<Cnss>| undefined;
+  private url="http://localhost:8036/fidmanar/Cnss";
+
 
   public save(): void {
+      this.http.post(this.url+"/",this._cnss).subscribe(
+        data=>{
+          console.log(data);
+        },error=>{
+          console.log("errore"+error);
+        }
+      )
     //this._listcnss.push(this.cnss);
-
   }
-
+  public findByNumeroCnss (numeroCnss: string){
+    this.http.get<Cnss>(this.url+"/numeroCnss"+numeroCnss).subscribe(
+      data=>{
+        console.log(data);
+      },error=>{
+        console.log("errore"+error);
+      }
+    )
+  }
+public findByReference(reference: string){
+  this.http.get<Cnss>(this.url+"/reference/"+reference).subscribe(
+    data=>{
+      console.log(data);
+    },error=>{
+      console.log("errore"+error);
+    }
+  )
+}
+public findByDatede(date_de_declaration:Date){
+  this.http.get<Cnss>(this.url+"/date-de-declaration/"+date_de_declaration).subscribe(
+    data=>{
+      console.log(data);
+    },error=>{
+      console.log("errore"+error);
+    }
+  )
+}
+public findByActivite(activite: string){
+  this.http.get<Cnss>(this.url+"/activite/"+activite).subscribe(
+    data=>{
+      console.log(data);
+    },error=>{
+      console.log("errore"+error);
+    }
+  )
+}
+public deleteByReference (reference:string){
+  this.http.delete<Cnss>(this.url+"/reference/"+reference).subscribe(
+    data=>{
+      this._cnss=data;
+      console.log(data);
+    },error=>{
+      console.log("erreur"+error);
+    }
+  )
+   }
+   public deleteByNumeroCnss (numeroCnss:string){
+    this.http.delete<Cnss>(this.url+"/numeroCnss/"+numeroCnss).subscribe(
+      data=>{
+        this._cnss=data;
+        console.log(data);
+      },error=>{
+        console.log("erreur"+error);
+      }
+    )
+     }
   get cnss(): Cnss {
     if (this._cnss == null){
       this._cnss = new Cnss();
@@ -29,5 +93,5 @@ export class CnssService {
     return this._listcnss;
   }
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 }

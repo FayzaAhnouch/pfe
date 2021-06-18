@@ -15,7 +15,21 @@ export class FacturesComponent implements OnInit {
   public save(){
     this.facturesService.save();
   }
-
+ public findByReference(reference:string){
+    return this.facturesService.findByReference(reference);
+ }
+ public findByType(type:string){
+    return this.facturesService.findByType(type);
+ }
+ public findByDate(date:Date){
+    return this.facturesService.findBydate(date);
+ }
+ public deleteByReference(reference:string){
+    return this.facturesService.deleteByReference(reference);
+ }
+ public deleteByType(type:string){
+    return this.facturesService.deleteByType(type);
+ }
   ngOnInit(): void {
   }
 

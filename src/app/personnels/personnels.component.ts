@@ -15,7 +15,21 @@ export class PersonnelsComponent implements OnInit {
   public save(){
     this.personnelsService.save();
   }
-
+   public findByDatedembauche(datedembauche:Date){
+    return this.personnelsService.findByDatedembauche(datedembauche);
+   }
+   public findByDatederetraite(datederetraite:Date){
+    return this.personnelsService.findBydatederetraite(datederetraite);
+   }
+   public findBySalairedebase(Salairedebase:string){
+    return this.personnelsService.findBySalairedebase(Salairedebase);
+   }
+   public deleteByDatedembauche(datedembauche:Date){
+    return this.personnelsService.deleteByDatedembauche(datedembauche);
+   }
+     public  deleteBySalairedebase(salairedebase:string){
+    return this.personnelsService.findBySalairedebase(salairedebase);
+   }
 
   ngOnInit(): void {
   }

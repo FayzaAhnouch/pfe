@@ -15,7 +15,25 @@ export class CnssComponent implements OnInit {
   public save(){
     this.cnssService.save();
   }
+  public findByNumerocnss(numerocnss:string){
+    return this.cnssService.deleteByNumeroCnss(numerocnss);
+  }
+public findByReference(reference:string){
+    return this.cnssService.findByReference(reference);
+}
+public findByDatede(datede:Date){
+    return this.cnssService.findByDatede(datede);
+}
+public findByActivite(activite:string){
+    return this.cnssService.findByActivite(activite);
+}
+public deleteByReference(reference:string){
+    return this.cnssService.findByReference(reference);
+}
+public deleteByNumerocnss(numeroCnss:string){
+    return this.cnssService.deleteByNumeroCnss(numeroCnss);
 
+}
   ngOnInit(): void {
   }
 

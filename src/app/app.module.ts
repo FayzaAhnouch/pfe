@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AchatsComponent } from './achats/achats.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ClientsComponent } from './clients/clients.component';
 import {HttpClientModule} from "@angular/common/http";
 import { CnssComponent } from './cnss/cnss.component';
@@ -23,6 +23,7 @@ import { VentesComponent } from './ventes/ventes.component';
   ],
     imports: [
         BrowserModule,
+        ReactiveFormsModule,
         FormsModule,
       HttpClientModule
     ],

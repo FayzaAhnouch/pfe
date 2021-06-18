@@ -9,13 +9,28 @@ import {Clients} from "../controller/model/clients.model";
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
+  get clientsService(): ClientsService {
+    return this.clientsService;
+  }
 
 
-  constructor(private clientsService: ClientsService) { }
+  constructor(private clients_Service: ClientsService) { }
   public save(){
     this.clientsService.save();
   }
+  public findByReference(reference:string){
+    return this.clientsService.findByReference(reference);
+  }
+  public findByCode(code:string){
+    return this.clientsService.findByCode(code);
 
+  }
+  public deleteByReference(reference:string){
+    return this.clientsService.deleteByReference(reference);
+  }
+  public deleteByCode(code:string){
+    return this.clientsService.deleteByCode(code);
+  }
 
   ngOnInit(): void {
   }
