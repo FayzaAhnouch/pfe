@@ -9,12 +9,10 @@ import {Clients} from "../controller/model/clients.model";
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
-  get clientsService(): ClientsService {
-    return this.clientsService;
-  }
 
 
-  constructor(private clients_Service: ClientsService) { }
+
+  constructor(private clientsService: ClientsService) { }
   public save(){
     this.clientsService.save();
   }

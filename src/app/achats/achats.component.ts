@@ -26,9 +26,6 @@ export class AchatsComponent implements OnInit {
     return this.achatsService.findByDate(date);
   }
 
-  get achats_Service(): AchatsService {
-    return this.achatsService;
-  }
   public deleteByreference(reference:string){
     return this.achatsService.deleteByReference(reference);
   }

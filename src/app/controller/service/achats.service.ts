@@ -6,8 +6,8 @@ import {Achats} from "../model/achats.model";
   providedIn: 'root'
 })
 export class AchatsService {
-  public _achats:Achats | undefined;
-  public _listachats: Array<Achats>| undefined;
+private _achats:Achats | undefined;
+  private _listachats: Array<Achats>| undefined;
   private url="http://localhost:8036/fidmanar/Achats";
 
   public save(): void {
