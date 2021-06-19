@@ -8,20 +8,20 @@ import { Personnels } from '../model/personnels.model';
   providedIn: 'root'
 })
 export class VentesService {
-  public _ventes:Ventes| undefined;
-  public _listventes: Array<Ventes>| undefined;
-  private url="http://localhost:8036/fidmanar/Ventes";
+  public _ventes:Ventes;
+  public _listventes: Array<Ventes>;
+  private url="http://localhost:8036/Fidmanar/Vente";
 
 
   public save(): void {
     this.http.post(this.url+"/",this._ventes).subscribe(
       data=>{
-        console.log(data);
+        this._listventes.push(this.ventes);
       },error=>{
         console.log("errore"+error);
       }
     )
-    //this._listventes.push(this.ventes);
+
   }
   public findByDate(date:Date){
     this.http.get<Ventes>(this.url+"/date/"+date).subscribe(
@@ -50,11 +50,12 @@ export class VentesService {
   }
     )
  }
- public deleteByReference(reference:string){
-  this.http.delete<Ventes>(this.url+"/reference/"+reference).subscribe(
+ public deleteByReference(reference:number, i: number){
+  this.http.delete<number>(this.url+"/reference/"+reference).subscribe(
     data=>{
-      this._ventes=data;
-      console.log(data);
+           if (data > 0){
+             this._listventes.splice(i,1);
+           }
     },error=>{
       console.log("erreur"+error);
     }
@@ -85,4 +86,18 @@ export class VentesService {
     return this._listventes;
   }
   constructor(private http:HttpClient) { }
+
+  update(index: number) {
+    this._ventes = this._listventes[index];
+  }
+
+  findAll() {
+    this.http.get<Array<Ventes>>(this.url+ "/").subscribe(
+      data=>{
+        this._listventes = data ;
+      }, error => {
+        console.log("eror");
+      }
+    )
+  }
 }

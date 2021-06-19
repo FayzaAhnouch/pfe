@@ -8,20 +8,22 @@ import {HttpClient} from "@angular/common/http";
 })
 
 export class CnssService {
-  public _cnss:Cnss| undefined;
-  public _listcnss: Array<Cnss>| undefined;
+  public _cnss:Cnss;
+  public _listcnss: Array<Cnss>;
   private url="http://localhost:8036/fidmanar/Cnss";
 
 
   public save(): void {
-      this.http.post(this.url+"/",this._cnss).subscribe(
+      this.http.post<number>(this.url+"/",this._cnss).subscribe(
         data=>{
-          console.log(data);
+          if (data > 0){
+            this._listcnss.push(this.cnss);
+          }
         },error=>{
           console.log("errore"+error);
         }
       )
-    //this._listcnss.push(this.cnss);
+    //
   }
   public findByNumeroCnss (numeroCnss: string){
     this.http.get<Cnss>(this.url+"/numeroCnss"+numeroCnss).subscribe(
@@ -59,11 +61,10 @@ public findByActivite(activite: string){
     }
   )
 }
-public deleteByReference (reference:string){
+public deleteByReference (reference:string, index: number){
   this.http.delete<Cnss>(this.url+"/reference/"+reference).subscribe(
     data=>{
-      this._cnss=data;
-      console.log(data);
+      this.listcnss.splice(index,1);
     },error=>{
       console.log("erreur"+error);
     }
@@ -94,4 +95,12 @@ public deleteByReference (reference:string){
   }
 
   constructor(private http:HttpClient) { }
+
+  findALl() {
+    this.http.get<Array<Cnss>>(this.url+ "/").subscribe(
+      data=>{
+        this._listcnss = data;
+      }
+    )
+  }
 }

@@ -1,21 +1,58 @@
- <div class="card">
-   <div class="card-header">Ajout d'Achats</div>
-   <div class="card-body">
-     <div class="form-group">
-       <label>montant</label>
-       <input type="number" class="form-control" [(ngModel)]="this.achats.montant" >   </div>
+<div class="card" >
+  <div class="card-header">Liste des achats</div>
+  <div class="card-body">
+    <table class="table table-stripped">
+      <thead>
+      <th>montant</th>
+      <th>date</th>
+      <th>Action</th>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let achat of listachats; index as i" >
+        <td>{{achat.montant}}</td>
+        <td>{{achat.date}}</td>
+        <td>
+          <button class="btn  btn-sm btn-outline-warning" (click)="update(i, achat)" (click)="open(content)"><i class="fa fa-edit"></i></button>
+          <button class="btn  btn-sm btn-outline-danger btn-trash " (click)="deleteByreference(achat.reference,i)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <button class="btn  btn-outline-primary btn-block" (click)="open(content)">Ajouter un achat</button>
 
-     <div class="form-group">
-       <label >date</label>
-       <input type="date" class="form-control" [(ngModel)]="this.achats.date" ></div>
-     <div class="form-group">
-       <label>reference</label>
-       <input type="text" class="form-control"  [(ngModel)]="this.achats.reference"></div>
-     <div class="card-footer">
-       <button class="btn btn-block btn-outline-primary"(click)="save()">Enregistrer </button>
+  </div>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">achat</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-header">Ajout d'Achats</div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>montant</label>
+          <input type="number" class="form-control" [(ngModel)]="this.achats.montant" > </div>
 
-     </div>
-   </div>
- </div>
+        <div class="form-group">
+          <label >date</label>
+          <p>{{this.achats.date}}</p>
+          <input type="date" class="form-control" [(ngModel)]="this.achats.date" ></div>
+        <div class="form-group">
+          <label>reference</label>
+          <input type="text" class="form-control"  [(ngModel)]="this.achats.reference"></div>
+      </div>
+    </div>
+      </div>
 
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="save()" >Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">close</button>
+  </div>
+</ng-template>
 

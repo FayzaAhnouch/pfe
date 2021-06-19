@@ -3,6 +3,7 @@ import {ClientsService} from "../controller/service/clients.service";
 import {Clients} from "../controller/model/clients.model";
 import {CnssService} from "../controller/service/cnss.service";
 import {Cnss} from "../controller/model/cnss.model";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-cnss',
@@ -11,7 +12,7 @@ import {Cnss} from "../controller/model/cnss.model";
 })
 export class CnssComponent implements OnInit {
 
-  constructor(private cnssService: CnssService) { }
+  constructor(public cnssService: CnssService,private modalService: NgbModal) { }
   public save(){
     this.cnssService.save();
   }
@@ -27,14 +28,26 @@ public findByDatede(datede:Date){
 public findByActivite(activite:string){
     return this.cnssService.findByActivite(activite);
 }
-public deleteByReference(reference:string){
-    return this.cnssService.findByReference(reference);
+public deleteByReference(reference:string,index: number){
+    return this.cnssService.deleteByReference(reference, index);
 }
 public deleteByNumerocnss(numeroCnss:string){
     return this.cnssService.deleteByNumeroCnss(numeroCnss);
 
 }
   ngOnInit(): void {
+    this.findAll();
+  }
+  open(content): void {
+    this.modalService.open(content);
   }
 
+  update(i: number) {
+    this.cnssService._cnss = this.cnssService.listcnss[i];
+  }
+
+
+  private findAll() {
+    this.cnssService.findALl();
+  }
 }

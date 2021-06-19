@@ -1,19 +1,56 @@
-<div class="card">
-  <div class="card-header">Ajout des personnels</div>
+<div class="card" >
+  <div class="card-header">Liste des personnels</div>
   <div class="card-body">
-    <div class="form-group">
-      <label for="">date d'embauche</label>
-      <input type="number" class="form-control" ></div>
-    <div class="form-group">
-      <label for="">date de retraite</label>
-      <input type="number" class="form-control" ></div>
-    <div class="form-group">
-      <label for="">salaire de base</label>
-      <input type="number" class="form-control" ></div>
-
-    <div class="card-footer">
-      <button class="btn btn-block btn-outline-primary">Next</button>
-      <button class="btn btn-block btn-outline-primary">Previous</button>
-    </div>
+    <table class="table table-stripped">
+      <thead>
+      <th>date embauche</th>
+      <th>date retraite</th>
+      <th>salaire de base</th>
+      <th>action</th>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let personnel of this.personnelsService.listpersonnels ; index as i" >
+        <td>{{personnel.datedembauche}}</td>
+        <td>{{personnel.datederetraite}}</td>
+        <td>{{personnel.salairedebase}}</td>
+        <td>
+          <button class="btn  btn-sm btn-outline-warning" (click)="update(i)" (click)="open(content)"><i class="fa fa-edit"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <button class="btn  btn-outline-primary btn-block" (click)="open(content)">Ajouter personnel</button>
   </div>
 </div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">factures</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-header">Ajout d'un personnel</div>
+      <div class="card-body">
+        <div class="form-group">
+          <label >date embauche</label>
+          <input type="date" class="form-control" [(ngModel)]="this.personnelsService.personnels.datedembauche"></div>
+        <div class="form-group">
+          <label >date retraite</label>
+          <input type="date" class="form-control" [(ngModel)]="this.personnelsService.personnels.datederetraite"></div>
+        <div class="form-group">
+          <label >salaire de base</label>
+          <input type="number" class="form-control" [(ngModel)]="this.personnelsService.personnels.salairedebase"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="save()" >Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">close</button>
+  </div>
+</ng-template>
+
+

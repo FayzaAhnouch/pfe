@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AchatsService} from "../controller/service/achats.service";
 import {Achats} from "../controller/model/achats.model";
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-achats',
@@ -9,7 +10,10 @@ import {Achats} from "../controller/model/achats.model";
 })
 export class AchatsComponent implements OnInit {
 
-  constructor(private achatsService:AchatsService) { }
+  constructor(private achatsService:AchatsService, private modalService: NgbModal) { }
+  open(content): void {
+    this.modalService.open(content);
+  }
   public save(){
     this.achatsService.save();
   }
@@ -26,8 +30,8 @@ export class AchatsComponent implements OnInit {
     return this.achatsService.findByDate(date);
   }
 
-  public deleteByreference(reference:string){
-    return this.achatsService.deleteByReference(reference);
+  public deleteByreference(reference:string, index:number){
+    return this.achatsService.deleteByReference(reference,index);
   }
 
   get achats(): Achats {
@@ -38,6 +42,9 @@ export class AchatsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.findAll();
+  }
+  update(index: number, achat: Achats): void{
+    return this.achatsService.update(index, achat);
   }
 
 }

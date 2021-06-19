@@ -1,20 +1,72 @@
-<div class="card">
-  <div class="card-header">Ajout des clients</div>
+<div class="card" >
+  <div class="card-header">Liste des clients</div>
   <div class="card-body">
-    <div class="form-group">
-      <label >Nom</label>
-      <input type="text" class="form-control" ></div>
-    <div class="form-group">
-      <label >Prenom</label>
-      <input type="text" class="form-control" ></div>
-    <div class="form-group">
-      <label >Profil</label>
-      <input type="text" class="form-control" ></div>
-    <label >Reference</label>
-    <input type="text" class="form-control" ></div>
-  <label >Date de Naissance</label>
-  <input type="date" class="form-control" ></div>
-    <div class="card-footer">
-      <button class="btn btn-block btn-outline-primary">Enregistrer</button>
+    <table class="table table-stripped">
+      <thead>
+      <th>reference</th>
+      <th>nom</th>
+      <th>prenom</th>
+      <th>profil</th>
+      <th>action</th>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let client of listclients ; index as i" >
+        <td>{{client.reference}}</td>
+        <td>{{client.nom}}</td>
+        <td>{{client.prenom}}</td>
+        <td>{{client.profil}}</td>
+        <td>
+          <button class="btn  btn-sm btn-outline-warning" (click)="update(i, client)" (click)="open(content)"><i class="fa fa-edit"></i></button>
+          <button class="btn  btn-sm btn-outline-danger btn-trash " (click)="deleteByReference(client.reference,i)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <button class="btn  btn-outline-primary btn-block" (click)="open(content)">Ajouter un client</button>
+  </div>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">client</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-header">Ajout de client</div>
+      <div class="card-body">
+        <div class="card">
+          <div class="card-header">Ajout des clients</div>
+          <div class="card-body">
+            <div class="form-group">
+              <label >Nom</label>
+              <input type="text" class="form-control" [(ngModel)]="this.clients.nom" ></div>
+            <div class="form-group">
+              <label >Prenom</label>
+              <input type="text" class="form-control" [(ngModel)]="this.clients.prenom"></div>
+            <div class="form-group">
+              <label >Profil</label>
+              <input type="text" class="form-control" [(ngModel)]="this.clients.profil" ></div>
+            <label >Reference</label>
+            <input type="text" class="form-control" [(ngModel)]="this.clients.reference"></div>
+          <label >Date de Naissance</label>
+          <input type="date" class="form-control" [(ngModel)]="this.clients.date_de_naissance" ></div>
     </div>
+   </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="save()" >Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">close</button>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
 

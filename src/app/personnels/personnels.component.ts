@@ -3,6 +3,7 @@ import {ClientsService} from "../controller/service/clients.service";
 import {Clients} from "../controller/model/clients.model";
 import {PersonnelsService} from "../controller/service/personnels.service";
 import {Personnels} from "../controller/model/personnels.model";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-personnels',
@@ -11,7 +12,7 @@ import {Personnels} from "../controller/model/personnels.model";
 })
 export class PersonnelsComponent implements OnInit {
 
-  constructor(private personnelsService: PersonnelsService) { }
+  constructor(public personnelsService: PersonnelsService,private modalService: NgbModal) { }
   public save(){
     this.personnelsService.save();
   }
@@ -32,6 +33,16 @@ export class PersonnelsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+     this.findAll();
+  }
+  open(content): void {
+    this.modalService.open(content);
+  }
+  update(i){
+    this.personnelsService._personnels = this.personnelsService.listpersonnels[i];
   }
 
+  private findAll() {
+    this.personnelsService.findAll();
+  }
 }

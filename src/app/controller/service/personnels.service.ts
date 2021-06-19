@@ -7,20 +7,20 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class PersonnelsService {
-  public _personnels:Personnels| undefined;
-  public _listpersonnels: Array<Personnels>| undefined;
-  private url="http://localhost:8036/fidmanar/Personnels";
- 
+  public _personnels:Personnels;
+  public _listpersonnels: Array<Personnels>;
+  private url="http://localhost:8036/Fidmanar/Salaire";
+
 
   public save(): void {
+    console.log(this._personnels)
     this.http.post(this.url+ "/",this._personnels).subscribe(
       data=>{
-        console.log(data);
+        this._listpersonnels.push(this.personnels);
       },error=>{
         console.log("errore"+error);
       }
     )
-    //this._listpersonnels.push(this.personnels);
   }
   public findByDatedembauche(date_d_embauche:Date){
     this.http.get<Personnels>(this.url+"/date_d_embauche/"+date_d_embauche).subscribe(
@@ -88,4 +88,12 @@ export class PersonnelsService {
 
 
   constructor(private http:HttpClient) { }
+
+  findAll() {
+    this.http.get<Array<Personnels>>(this.url + "/").subscribe(
+      data =>{
+        this._listpersonnels = data;
+      }
+    )
+  }
 }

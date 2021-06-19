@@ -7,18 +7,19 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class FacturesService {
-  public _factures:Factures| undefined;
-  public _listfactures: Array<Factures>| undefined;
-  private url="http://localhost:8036/fidmanar/Factures";
+  public _factures:Factures;
+  public _listfactures: Array<Factures>;
+  private url="http://localhost:8036/Fidmanar/Facture";
   public save(): void {
+    console.log(this._factures);
     this.http.post(this.url+"/",this._factures).subscribe(
       data=>{
-        console.log(data);
+        this._listfactures.push(this.factures);
       },error=>{
         console.log("errore"+error);
       }
     )
-    //this._listfactures.push(this.factures);
+
   }
   public findByReference(reference: string){
     this.http.get<Factures>(this.url+"/reference/"+reference).subscribe(
@@ -47,11 +48,12 @@ export class FacturesService {
       }
     )
   }
-  public deleteByReference (reference:string){
-    this.http.delete<Factures>(this.url+"/reference/"+reference).subscribe(
+  public deleteByReference (reference:number, index : number){
+    this.http.delete<number>(this.url+"/reference/"+reference).subscribe(
       data=>{
-        this._factures=data;
-        console.log(data);
+        if (data > 0 ){
+          this.listfactures.splice(index, 1);
+        }
       },error=>{
         console.log("erreur"+error);
       }
@@ -67,8 +69,16 @@ export class FacturesService {
         }
       )
        }
-       
 
+  public findAll(){
+    this.http.get<Array<Factures>>(this.url+"/").subscribe(
+      data=>{
+        this._listfactures = data ;
+      }, error => {
+        console.log("error");
+      }
+    )
+  }
 
   get factures(): Factures {
     if (this._factures == null){
@@ -83,6 +93,8 @@ export class FacturesService {
     }
     return this._listfactures;
   }
-
+  update(index: number): void{
+    this._factures = this.listfactures[index]
+  }
   constructor(private http:HttpClient) { }
 }

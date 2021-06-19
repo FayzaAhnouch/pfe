@@ -1,7 +1,7 @@
 export class Clients {
-  public nom: string | undefined;
-  public prenom: string | undefined;
-  public profil: string | undefined;
-  public date_de_naissance: string | undefined;
-  public code: string | undefined;
+  public nom: string ;
+  public prenom: string ;
+  public profil: string ;
+  public date_de_naissance: string;
+  public reference: string ;
 }

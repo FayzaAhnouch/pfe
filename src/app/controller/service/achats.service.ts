@@ -6,19 +6,22 @@ import {Achats} from "../model/achats.model";
   providedIn: 'root'
 })
 export class AchatsService {
-private _achats:Achats | undefined;
-  private _listachats: Array<Achats>| undefined;
+  public _achats: Achats ;
+  public _listachats: Array<Achats>;
+  public _index: number;
   private url="http://localhost:8036/fidmanar/Achats";
 
   public save(): void {
-    this.http.post(this.url+"/",this._achats).subscribe(
+    console.log(this.achats);
+    this.http.post(this.url+"/",this.clone(this._achats)).subscribe(
+
       data=>{
         console.log(data);
       },error=>{
         console.log("errore"+error);
       }
     )
-    //this._listachats.push(this._achats);
+    this._listachats.push(this.clone(this._achats));
   }
 
   public findAll(){
@@ -61,10 +64,12 @@ private _achats:Achats | undefined;
 }
   )
 }
- public deleteByReference(reference:string){
-   this.http.delete<Achats>(this.url+"/reference/"+reference).subscribe(
+ public deleteByReference(reference:string, index: number){
+   this.http.delete<number>(this.url+"/reference/"+reference).subscribe(
      data=>{
-       this._achats=data;
+       if (data > 0){
+         this._listachats.splice(index,1);
+       }
        console.log(data);
      },error=>{
        console.log("erreur"+error);
@@ -83,9 +88,22 @@ private _achats:Achats | undefined;
     if (this._listachats == null){
       this._listachats = new Array<Achats>();
     }
-    return this.listachats;
+    return this._listachats;
+  }
+
+  public update(index: number, achat: Achats): void {
+    this._index = index;
+    this._achats = this.clone(achat);
   }
   constructor(private http:HttpClient) {
+  }
+
+  public clone(achat: Achats): Achats {
+     const achatclone = new Achats();
+     achatclone.date = achat.date;
+     achatclone.montant = achat.montant;
+     achatclone.reference = achat.reference;
+     return achatclone;
   }
 
 }

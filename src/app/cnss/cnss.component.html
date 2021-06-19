@@ -1,21 +1,63 @@
-<div class="card">
-  <div class="card-header">Ajout CNSS</div>
+<div class="card" >
+  <div class="card-header">CNSS</div>
   <div class="card-body">
-    <div class="form-group">
-      <label >numerocnss</label>
-      <input type="text" class="form-control" ></div>
-    <div class="form-group">
-      <label >datede</label>
-      <input type="number" class="form-control" ></div>
-    <div class="form-group">
-      <label >reference</label>
-      <input type="number" class="form-control" ></div>
-    <div class="form-group">
-      <label >activité</label>
-      <input type="number" class="form-control" ></div>
+    <table class="table table-stripped">
+      <thead>
+      <th>Numero</th>
+      <th>date</th>
+      <th>Activité</th>
+      <th>reference</th>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let cnss of this.cnssService.listcnss; index as i" >
+        <td>{{cnss.numerocnss }}</td>
+        <td>{{cnss.datede }}</td>
+        <td>{{cnss.datede }}</td>
+        <td>{{cnss.activite }}</td>
+        <td>
+          <button class="btn  btn-sm btn-outline-warning" (click)="update(i)" (click)="open(content)"><i class="fa fa-edit"></i></button>
+          <button class="btn  btn-sm btn-outline-danger btn-trash " (click)="deleteByReference(cnss.reference,i)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <button class="btn  btn-outline-primary btn-block" (click)="open(content)">Ajouter un cnss</button>
 
-    <div class="card-footer">
-      <button class="btn btn-block btn-outline-primary">Enregistrer</button>
-    </div>
   </div>
 </div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">CNSS</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-header">Ajout CNSS</div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>numero</label>
+          <input type="number" class="form-control" [(ngModel)]="this.cnssService.cnss.numerocnss" > </div>
+
+        <div class="form-group">
+          <label >date</label>
+          <input type="date" class="form-control" [(ngModel)]="this.cnssService.cnss.datede"  ></div>
+        <div class="form-group">
+          <label>activité</label>
+          <input type="text" class="form-control"  [(ngModel)]="this.cnssService.cnss.activite" ></div>
+        <div class="form-group">
+          <label>reference</label>
+          <input type="text" class="form-control"  [(ngModel)]="this.cnssService.cnss.reference" ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="save()" >Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">close</button>
+  </div>
+</ng-template>
+

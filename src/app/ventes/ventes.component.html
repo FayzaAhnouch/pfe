@@ -1,19 +1,59 @@
-<div class="card">
-  <div class="card-header">Ajout de ventes</div>
+<div class="card" >
+  <div class="card-header">Liste des ventes</div>
   <div class="card-body">
-    <div class="form-group">
-      <label for="">montant</label>
-      <input type="text" class="form-control" ></div>
-    <div class="form-group">
-      <label for="">date</label>
-      <input type="number" class="form-control" ></div>
-    <div class="form-group">
-      <label for="">reference</label>
-      <input type="number" class="form-control" ></div>
-    <div class="card-footer">
-      <button class="btn btn-block btn-outline-primary">Next</button>
-      <button class="btn btn-block btn-outline-primary">Previous</button>
-    </div>
+    <table class="table table-stripped">
+      <thead>
+      <th>montant</th>
+      <th>date</th>
+      <th>Action</th>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let vente of listventes; index as i" >
+        <td>{{vente.montant}}</td>
+        <td>{{vente.date}}</td>
+        <td>
+          <button class="btn  btn-sm btn-outline-warning" (click)="update(i)" (click)="open(content)"><i class="fa fa-edit"></i></button>
+          <button class="btn  btn-sm btn-outline-danger btn-trash " (click)="deleteByReference(vente.reference,i)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <button class="btn  btn-outline-primary btn-block" (click)="open(content)">Ajouter un vente</button>
+
   </div>
 </div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">vente</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+
+          <div class="card-header">Ajout de ventes</div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="">montant</label>
+              <input type="number" class="form-control" [(ngModel)]="this.ventes.montant" ></div>
+            <div class="form-group">
+              <label for="">date</label>
+              <input type="date" class="form-control" [(ngModel)]="this.ventes.date"></div>
+            <div class="form-group">
+              <label for="">reference</label>
+              <input type="number" class="form-control" [(ngModel)]="this.ventes.reference"></div>
+          </div>
+        </div>
+      </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="save()" >Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">close</button>
+  </div>
+</ng-template>
+
+
 
