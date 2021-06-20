@@ -11,6 +11,7 @@ import { FacturesComponent } from './factures/factures.component';
 import { PersonnelsComponent } from './personnels/personnels.component';
 import { VentesComponent } from './ventes/ventes.component';
 import {CommonModule} from "@angular/common";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {CommonModule} from "@angular/common";
     CnssComponent,
     FacturesComponent,
     PersonnelsComponent,
-    VentesComponent
+    VentesComponent,
+    FooterComponent
   ],
     imports: [
         BrowserModule,
